@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerLook playerLook;
+    [SerializeField] PlayerInteract playerInteract;
 
     private PlayerInput _playerInput;
     private PlayerInput.WalkingActions _walkingActions;
@@ -14,6 +15,7 @@ public class InputManager : MonoBehaviour
     {
         _playerInput = new PlayerInput();
         _walkingActions = _playerInput.Walking;
+        _walkingActions.Interact.performed += ctx => playerInteract.Interact();
     }
 
     private void FixedUpdate()
