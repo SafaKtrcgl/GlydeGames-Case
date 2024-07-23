@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using Singleton;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputHelper : MonoSingleton<InputHelper>
 {
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerLook playerLook;
@@ -11,11 +10,24 @@ public class InputManager : MonoBehaviour
     private PlayerInput _playerInput;
     private PlayerInput.WalkingActions _walkingActions;
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         _playerInput = new PlayerInput();
         _walkingActions = _playerInput.Walking;
         _walkingActions.Interact.performed += ctx => playerInteract.Interact();
+    }
+
+    public void OnDialogDisplay()
+    {
+        _playerInput.Walking.Disable();
+        _playerInput.UI.Enable();
+    }
+
+    public void OnDialogHide()
+    {
+        _playerInput.Walking.Enable();
+        _playerInput.UI.Disable();
     }
 
     private void FixedUpdate()
