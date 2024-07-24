@@ -323,6 +323,140 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1258942527
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1367022145}
+    m_Modifications:
+    - target: {fileID: 843408648778191949, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: gasPumpGaugeDialogData
+      value: 
+      objectReference: {fileID: 11400000, guid: cb9c5ac84111a76419b2d17b1633c1ae, type: 2}
+    - target: {fileID: 3022852572692588971, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_Name
+      value: GasPump (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+--- !u!4 &1258942528 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+  m_PrefabInstance: {fileID: 1258942527}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1298264643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1367022145}
+    m_Modifications:
+    - target: {fileID: 843408648778191949, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: gasPumpGaugeDialogData
+      value: 
+      objectReference: {fileID: 11400000, guid: fecf4bbd2f14cce45bd39e1ad86a9ac8, type: 2}
+    - target: {fileID: 3022852572692588971, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_Name
+      value: GasPump (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+--- !u!4 &1298264644 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+  m_PrefabInstance: {fileID: 1298264643}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1367022144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1367022145}
+  m_Layer: 0
+  m_Name: GasPumps
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1367022145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367022144}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3214826489166105650}
+  - {fileID: 1258942528}
+  - {fileID: 1298264644}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1502763384
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +832,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1367022145}
     m_Modifications:
     - target: {fileID: 843408648778191949, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
       propertyPath: gasPumpGaugeDialogData
@@ -718,7 +852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -737,6 +871,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+--- !u!4 &3214826489166105650 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7904370876055706733, guid: b995667a5a1b4d949b3e585e3abfa58d, type: 3}
+  m_PrefabInstance: {fileID: 3214826489166105649}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -746,6 +885,6 @@ SceneRoots:
   - {fileID: 1560138310}
   - {fileID: 1897942899422481304}
   - {fileID: 837000468}
-  - {fileID: 3214826489166105649}
+  - {fileID: 1367022145}
   - {fileID: 2350574368989813178}
   - {fileID: 1801191826}

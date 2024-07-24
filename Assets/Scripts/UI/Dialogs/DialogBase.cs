@@ -6,4 +6,9 @@ public abstract class DialogBase : MonoBehaviour
     {
 
     }
+
+    virtual public void Close()
+    {
+        DialogHelper.Instance.RemoveDialog(this);
+    }
 }

@@ -1,18 +1,36 @@
 using DG.Tweening;
+using System.Collections;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GasPumpGaugeDialog : DialogBase
 {
     [SerializeField] private Image indicatorImage;
+    [SerializeField] private Button gaugeButton;
+    [SerializeField] private Button exitButton;
     [SerializeField] private GaugeZone gaugeZonePrefab;
     [SerializeField] private Transform zoneHolder;
+    [SerializeField] private TextMeshProUGUI highestScoreText;
+    [SerializeField] private TextMeshProUGUI currentScoreText;
 
     private const float oscilationValue = 180f;
     private const float zoneWeightConstant = 2f;
     private const int radiantConstant = 360;
 
+    private const string currentScore = "Current Score: ";
+    private const string highestScore = "Highest Score: ";
+
     private Sequence _oscilationSequence;
+    private Coroutine _countdownRoutine;
+    private GasPumpGaugeDialogData _gasPumpGaugeDialogData;
+    private float _totalWeight;
+    private float _currentScore = 1f;
+    private bool _isBussy = false;
+
+    private void UpdateCurrentScoreText() => currentScoreText.text = currentScore + _currentScore;
+    private void UpdateHighScoreText() => highestScoreText.text = highestScore + PlayerPrefsUtility.GetGasPumpHighScore();
 
     public override void Init(ScriptableDialogData dialogData)
     {
@@ -20,40 +38,127 @@ public class GasPumpGaugeDialog : DialogBase
 
         indicatorImage.transform.localRotation = Quaternion.Euler(Vector3.forward * oscilationValue / 2);
 
-        GasPumpGaugeDialogData gasPumpGaugeDialogData = dialogData as GasPumpGaugeDialogData;
+        gaugeButton.onClick.AddListener(() =>
+        {
+            if (_isBussy) return;
+            StartCoroutine(OnGaugeClicked());
+        });
+        exitButton.onClick.AddListener(OnCloseButtonClick);
+
+        _gasPumpGaugeDialogData = dialogData as GasPumpGaugeDialogData;
 
         _oscilationSequence = DOTween.Sequence();
-
         _oscilationSequence.SetLoops(-1);
-        _oscilationSequence.Append(indicatorImage.transform.DOLocalRotate(Vector3.forward * -oscilationValue, gasPumpGaugeDialogData.oscalationTime / 2f, RotateMode.LocalAxisAdd));
-        _oscilationSequence.Append(indicatorImage.transform.DOLocalRotate(Vector3.forward * oscilationValue, gasPumpGaugeDialogData.oscalationTime / 2f, RotateMode.LocalAxisAdd));
+        _oscilationSequence.Append(indicatorImage.transform.DOLocalRotate(Vector3.forward * -oscilationValue, _gasPumpGaugeDialogData.oscalationTime / 2f, RotateMode.LocalAxisAdd));
+        _oscilationSequence.Append(indicatorImage.transform.DOLocalRotate(Vector3.forward * oscilationValue, _gasPumpGaugeDialogData.oscalationTime / 2f, RotateMode.LocalAxisAdd));
 
-        var totalWeight = 0f;
-        gasPumpGaugeDialogData.gasPumpGaugeContent.ForEach(x => totalWeight += x.weight);
+        _totalWeight = 0f;
+        _gasPumpGaugeDialogData.gasPumpGaugeContent.ForEach(x => _totalWeight += x.weight);
 
         var rotationIndex = 0f;
-        foreach (var gaugeContent in gasPumpGaugeDialogData.gasPumpGaugeContent)
+        foreach (var gaugeContent in _gasPumpGaugeDialogData.gasPumpGaugeContent)
         {
             var zone = Instantiate(gaugeZonePrefab, zoneHolder);
-            var relativeWeight = (gaugeContent.weight / totalWeight) / zoneWeightConstant;
+            var relativeWeight = (gaugeContent.weight / _totalWeight) / zoneWeightConstant;
             zone.Init(relativeWeight, gaugeContent.areaColor, rotationIndex);
             rotationIndex -= relativeWeight * radiantConstant;
         }
+
+        UpdateCurrentScoreText();
+        UpdateHighScoreText();
+
+        _countdownRoutine = StartCoroutine(TimeCountdown(_gasPumpGaugeDialogData.timeLimit));
     }
 
-    private void Update()
+    public void OnCloseButtonClick()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        Close();
+    }
+
+    public IEnumerator OnGaugeClicked()
+    {
+        _isBussy = true;
+
+        float GetInspectorRotationValue(float eulerAngle)
         {
-            DialogHelper.Instance.RemoveDialog(this);
+            if (eulerAngle > 180f) return eulerAngle - 360f;
+
+            return eulerAngle;
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+
+        _oscilationSequence.Pause();
+        var indicatorRelevantProgress = GetInspectorRotationValue((indicatorImage.transform.localEulerAngles.z) - (oscilationValue / 2f)) / -oscilationValue;
+        RewardPlayer(GetCurrentZone(indicatorRelevantProgress));
+
+        yield return new WaitForSeconds(.25f);
+
+        _oscilationSequence.Play();
+
+        _isBussy = false;
+    }
+
+    private void RewardPlayer(GasPumpGaugeAreaColor hitAreaColor)
+    {
+        switch (hitAreaColor)
         {
-            _oscilationSequence.Pause();
+            case GasPumpGaugeAreaColor.White:
+                _currentScore = 1f;
+                break;
+            case GasPumpGaugeAreaColor.Green:
+                _currentScore *= 2f;
+                break;
+            case GasPumpGaugeAreaColor.Yellow:
+                _currentScore *= 1.5f;
+                break;
+            case GasPumpGaugeAreaColor.Red:
+                _currentScore *= .5f;
+                break;
         }
-        else if(Input.GetKeyDown(KeyCode.D))
+
+        UpdateCurrentScoreText();
+    }
+
+    private GasPumpGaugeAreaColor GetCurrentZone(float indicatorRelevantProgress)
+    {
+        var weightProgress = 0f;
+        foreach (var gaugeContent in _gasPumpGaugeDialogData.gasPumpGaugeContent)
         {
-            _oscilationSequence.Play();
+            weightProgress += gaugeContent.weight / _totalWeight;
+            if (weightProgress > indicatorRelevantProgress)
+            {
+                return gaugeContent.areaColor;
+            }
         }
+
+        return _gasPumpGaugeDialogData.gasPumpGaugeContent[^1].areaColor;
+    }
+
+    private IEnumerator TimeCountdown(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        OnTimeOut();
+    }
+
+    private void OnTimeOut()
+    {
+        if (_currentScore > PlayerPrefsUtility.GetGasPumpHighScore())
+        {
+            PlayerPrefsUtility.SetGasPumpHighScore(_currentScore);
+        }
+
+        Close();
+    }
+
+    public override void Close()
+    {
+        _oscilationSequence?.Kill();
+        if (_countdownRoutine != null)
+            StopCoroutine(_countdownRoutine);
+
+        gaugeButton.onClick.RemoveListener(() => StartCoroutine(OnGaugeClicked()));
+        exitButton.onClick.RemoveListener(OnCloseButtonClick);
+
+        base.Close();
     }
 }

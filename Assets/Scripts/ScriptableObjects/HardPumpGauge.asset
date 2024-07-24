@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37266e03acb51b14aaceec8cbecc2839, type: 3}
-  m_Name: EasyPumpGauge
+  m_Name: HardPumpGauge
   m_EditorClassIdentifier: 
   gasPumpGaugeContent:
-  - areaColor: 0
+  - areaColor: 3
     weight: 2
-  - areaColor: 2
-    weight: 1
   - areaColor: 1
     weight: 1
-  - areaColor: 2
-    weight: 1
-  timeLimit: 12
-  oscalationTime: 2
+  - areaColor: 3
+    weight: 2
+  timeLimit: 6
+  oscalationTime: 1
