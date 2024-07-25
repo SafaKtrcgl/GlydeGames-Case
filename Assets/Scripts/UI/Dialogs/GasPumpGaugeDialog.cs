@@ -106,6 +106,7 @@ public class GasPumpGaugeDialog : DialogBase
                 break;
             case GasPumpGaugeAreaColor.Green:
                 _currentScore *= 2f;
+                currentScoreText.transform.DOPunchScale(Vector2.one, .15f);
                 break;
             case GasPumpGaugeAreaColor.Yellow:
                 _currentScore *= 1.5f;
